@@ -26,6 +26,7 @@ public class GridCell
 public class Grid : MonoBehaviour
 {
     public GameObject board;
+    public GameObject piece;
 
     public const int gridSize = 8;
     private int cellSize = 1;
@@ -72,6 +73,33 @@ public class Grid : MonoBehaviour
         return gridCell;
     }
 
+    public void CreatePieces()
+    {
+        for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                GameObject pieceObject = Instantiate(this.piece, gridCells[i, (6 + j)].position, Quaternion.identity);
+                gridCells[i, (6 + j)].piece = pieceObject;
+                Piece pieceComponent = pieceObject.GetComponent<Piece>();
+                if (j == 1)
+                {
+                    if (i == 0 || i == 7)
+                        pieceComponent.pieceType = Piece.PieceType.Tower;
+                    else if (i == 1 || i == 6)
+                        pieceComponent.pieceType = Piece.PieceType.Knight;
+                    else if (i == 2 || i == 5)
+                        pieceComponent.pieceType = Piece.PieceType.Bishop;
+                    else if (i == 3)
+                        pieceComponent.pieceType = Piece.PieceType.Queen;
+                    else if (i == 4)
+                        pieceComponent.pieceType = Piece.PieceType.King;
+                }
+            }
+        }
+
+    }
+
 
     // DEBUG
     void Update()
@@ -89,9 +117,13 @@ public class Grid : MonoBehaviour
         {
             for (int j = 0; j < gridSize; j++)
             {
-                gridCell = gridCells[i, j]; 
-                Debug.Log($"Grid ({gridCell.x}, {gridCell.y})");
-                Debug.Log($"PosX: {gridCell.position.x} \tPosY: {gridCell.position.y}");
+                gridCell = gridCells[i, j];
+                if (gridCell.piece != null)
+                {
+                    Debug.Log($"Grid ({gridCell.x}, {gridCell.y})");
+                    Debug.Log($"PosX: {gridCell.position.x} \tPosY: {gridCell.position.y}");
+                    Debug.Log(gridCell.piece);
+                }
             }
         }
     }

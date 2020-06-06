@@ -26,6 +26,7 @@ public class Board : MonoBehaviour
 
         grid = Grid.GetGrid();
         CreateBoard();
+        grid.CreatePieces();
     }
 
     void CreateBoard()

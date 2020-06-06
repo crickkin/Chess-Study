@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
-    [SerializeField] private bool whitePiece = true;
+    public bool whitePiece = true;
     public enum PieceType { Pawn, Tower, Knight, Bishop, Queen, King };
-    [SerializeField] private PieceType pieceType = PieceType.Pawn;
+    public PieceType pieceType = PieceType.Pawn;
 
     [SerializeField] private Sprite[] whitePieces;
     [SerializeField] private Sprite[] blackPieces;
@@ -43,5 +43,4 @@ public class Piece : MonoBehaviour
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = (whitePiece) ? whitePieces[pieceId] : blackPieces[pieceId];
     }
-
 }
